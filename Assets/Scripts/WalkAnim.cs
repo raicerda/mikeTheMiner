@@ -52,32 +52,56 @@ public class WalkAnim : MonoBehaviour {
 	
 	void positioning(int dirParam){
 		if(lastDir == dirParam){
-			
+			//Debug.Log ("MISMA DIRECCION");
 		}else{
 			switch (dirParam){
 				case -1:
 				anim.Play("Walk");
 				sprite.scale = new Vector3(-1,1,1);
+			Debug.Log ("CAMBIO -1");
 				lastDir = dirParam;
 				break;
 				
 				case 1:
 				anim.Play("Walk");
 				sprite.scale = new Vector3(1,1,1);
+			Debug.Log ("CAMBIO 1");
 				lastDir = dirParam;
 				break;
 				
 				case 0:
 				anim.Stop();
+			Debug.Log ("CAMBIO 0");
 				lastDir = dirParam;
 				break;
 				
 				case 2:
 				//TODO correr animacion salto
+			Debug.Log ("CAMBIO 2");
+				lastDir = dirParam;
+				break;
+				
+				case -2:
+				//TODO correr animacion salto izq
+			Debug.Log ("CAMBIO -2");
+				lastDir = dirParam;
 				break;
 				
 				case 3:
 				//TODO correr animacion de salto pegado
+			Debug.Log ("CAMBIO 3");
+				lastDir = dirParam;
+				break;
+				
+				case -3:
+				//TODO correr animacion salto pegado izq
+			Debug.Log ("CAMBIO -3");
+				lastDir = dirParam;
+				break;
+				
+				case 5:
+				Debug.Log("CAMBIO 5");
+				lastDir = dirParam;
 				break;
 			}
 		}
