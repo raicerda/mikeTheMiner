@@ -71,6 +71,14 @@ public class WalkAnim : MonoBehaviour {
 				anim.Stop();
 				lastDir = dirParam;
 				break;
+				
+				case 2:
+				//TODO correr animacion salto
+				break;
+				
+				case 3:
+				//TODO correr animacion de salto pegado
+				break;
 			}
 		}
 	}

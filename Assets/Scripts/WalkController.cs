@@ -12,19 +12,19 @@ public class WalkController : MonoBehaviour {
     private Vector3 moveDirection = Vector3.zero;
 	public CharacterController controller;
 	public int distance;
+	int lastDir;
 	
 	void Start(){
 		controller = GetComponent<CharacterController>();
 		direction = 1;
 		distance = 0;
+		lastDir=0;
 	}
 	
     void Update() {
 		
-		float dirAux = Input.GetAxis("Horizontal");
-		whereIsFacing(dirAux);
-		
-		if (onAir){ distance++; Debug.Log(distance);}
+		float dirAux = getPosition((int)moveDirection.x);
+		if (onAir){ distance++;}
         if (controller.isGrounded) {
 			if (distance > 60) Debug.Log("DEAD BY FALL");
 			onAir = false;
@@ -35,6 +35,8 @@ public class WalkController : MonoBehaviour {
             if (Input.GetButton("Jump")){
 				onAir = true;
                 moveDirection.y = jumpSpeed;
+				//TODO Correr animacion de saltar
+				dirAux = 2;
 			}
         }else{
 			if(Input.GetAxis("Horizontal")==0){
@@ -54,18 +56,22 @@ public class WalkController : MonoBehaviour {
 					onAir = true;
 					moveDirection.y = jumpSpeed;
 					moveDirection.x = jumpSpeed*direction;
+					dirAux = 3;
+					//TODO correr animacion de salta pegado.
 				}
 			}
 		}
-		
+		WalkAnim.setDir((int)dirAux);
 		moveDirection.Set(moveDirection.x,moveDirection.y,0);
         if(isGrappable && Input.GetKey(KeyCode.Z)){}else{ moveDirection.y -= gravity * Time.deltaTime;}
         controller.Move(moveDirection * Time.deltaTime);
-//		float dirAux = Input.GetAxis("Horizontal");
-//		whereIsFacing(dirAux);
+		//whereIsFacing(dirAux);
     }
 	
-	
+	int getPosition(int num){
+		if(num ==0) return 0;
+		else return (int)Mathf.Sign (num);
+	}
 	
 	
 	// Check if the character can grapple onto a dirtWall
@@ -91,20 +97,6 @@ public class WalkController : MonoBehaviour {
 			isGrappable = false;
 		}
 	}
-	
-	void whereIsFacing(float dir){
-			
-		if(dir<0){
-			WalkAnim.setDir(-1);
-		}else{
-			if( dir>0){
-				WalkAnim.setDir(1);
-			}else{
-				WalkAnim.setDir(0);
-			}
-		}
-	}
-	
 	
 }
 
